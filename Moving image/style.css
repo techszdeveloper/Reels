@@ -1,0 +1,38 @@
+.carousel-item {
+    height: 32rem;
+    background-color: black;
+    color: white;
+}
+
+.carousel-caption h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+}
+
+.carousel-item img {
+    max-height: 47rem;
+    max-width: 35rem;
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.carousel-indicators li {
+    background-color: #888;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #fff;
+}
