@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Slider</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom CSS for Carousel */
+    .carousel {
+      width: 100%;
+      height: 90vh; /* Adjust height as needed */
+    }
+
+    .carousel-cell {
+      width: 100%;
+      height: 100%; /* Ensure full height */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5); /* Optional: Add background for better text visibility */
+      color: #fff; /* Ensure text is visible */
+      padding: 20px; /* Optional: Add padding for better layout */
+    }
+
+    .carousel-cell img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 10px; /* Space between image and text */
+    }
+
+    .carousel-cell h2, .carousel-cell p {
+      margin: 0; /* Remove default margin */
+      color: #fff; /* Ensure text is visible */
+    }
+  </style>
+</head>
+<body>
+  <h1 class="w3-center">Image Slider</h1>
+  <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded": true }'>
+    <div class="carousel-cell">
+      <img class="w3-image" src="imgs.jpg" alt="Image 1">
+      <h2></h2>
+      <p></p>
+    </div>
+    <div class="carousel-cell">
+      <img class="w3-image" src="imgs1.jpg" alt="Image 2">
+      <!-- Optional: Add text if needed -->
+      <h2></h2>
+      <p></p>
+    </div>
+    <div class="carousel-cell">
+      <img class="w3-image" src="imgs2.jpg" alt="Image 3">
+      <!-- Optional: Add text if needed -->
+      <h2></h2>
+      <p></p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</body>
+</html>
