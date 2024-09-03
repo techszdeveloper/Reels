@@ -1,0 +1,60 @@
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --switch-background: #e0e0e0;
+    --ball-background: #ffffff;
+    --ball-shadow: rgba(0, 0, 0, 0.15);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.theme-switch {
+    width: 70px;
+    height: 30px;
+    background-color: var(--switch-background);
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 2px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.ball {
+    width: 28px;
+    height: 28px;
+    background-color: var(--ball-background);
+    border-radius: 50%;
+    position: absolute;
+    left: 2px;
+    transition: left 0.3s ease;
+    box-shadow: 0 2px 5px var(--ball-shadow);
+}
+
+.dark-theme {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --switch-background: #4d4d4d;
+    --ball-background: #ffffff;
+}
+
+.dark-theme .ball {
+    left: 42px;
+}
