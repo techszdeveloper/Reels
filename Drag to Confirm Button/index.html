@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag To Confirm Button</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        html {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        * {
+            box-sizing: inherit;
+        }
+
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Inter", Arial;
+            background: #000;
+        }
+
+        .button {
+            --text: #000;
+            --background: #00fffc;
+            --background-opacity: 1;
+            --handle-stroke: #000;
+            --handle-fill: rgba(255, 255, 255, 0.08);
+            --handle-blur: 2;
+            --drop-stroke: #000;
+            --drop-fill: #ffffff00;
+            --icon-stroke: #000;
+            --icon-rotate: 0;
+            --icon-scale: 1;
+            --icon-y: 0;
+            --icon-offset: 16.8;
+            --handle-drop-opacity: 0;
+            --default-opacity: 1;
+            --default-x: 0;
+            --default-scale: 1;
+            --progress-opacity: 0;
+            --progress-scale: .75;
+            --success-opacity: 0;
+            --success-x: 0;
+            --success-scale: .75;
+            display: block;
+            cursor: pointer;
+            position: relative;
+            text-align: center;
+            outline: none;
+            border: none;
+            overflow: hidden;
+            padding: 8px 0;
+            margin: 0;
+            width: 148px;
+            line-height: 30px;
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 16px;
+            color: var(--text);
+            background: var(--background);
+            transform: scale(var(--button-scale, 1)) translateZ(0);
+            transition: transform 0.15s;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .button .handle,
+        .button .progress,
+        .button .success,
+        .button .drop {
+            position: absolute;
+            left: var(--left, auto);
+            right: var(--right, auto);
+            top: var(--top, auto);
+        }
+
+        .button .handle {
+            -webkit-backdrop-filter: blur(calc(var(--handle-blur) * 1px));
+            backdrop-filter: blur(calc(var(--handle-blur) * 1px));
+        }
+
+        .button .handle,
+        .button .drop {
+            --top: 8px;
+            z-index: 1;
+            border-radius: 11px;
+            opacity: var(--handle-drop-opacity);
+            pointer-events: var(--handle-drop-pointer, auto);
+        }
+
+        .button .handle svg,
+        .button .drop svg {
+            display: block;
+            width: var(--svg-size, 40px);
+            height: var(--svg-size, 40px);
+            stroke-width: 1px;
+            stroke: var(--stroke, var(--handle-stroke));
+            fill: var(--fill, var(--handle-fill));
+        }
+
+        .button .handle svg.background,
+        .button .drop svg.background {
+            margin: -5px;
+            opacity: var(--background-opacity);
+        }
+
+        .button .handle svg.icon,
+        .button .drop svg.icon {
+            --svg-size: 20px;
+            --fill: none;
+            --stroke: var(--icon-stroke);
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            stroke-width: 1.25;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 8.5;
+            stroke-dashoffset: var(--icon-offset);
+            transform: translateY(calc(var(--icon-y) * 1px)) rotate(calc(var(--icon-rotate) * 1deg)) scale(var(--icon-scale)) translateZ(0);
+        }
+
+        .button .handle {
+            --left: 8px;
+        }
+
+        .button .drop {
+            --right: 8px;
+            --stroke: var(--drop-stroke);
+            --fill: var(--drop-fill);
+        }
+
+        .button .default,
+        .button .progress,
+        .button .success {
+            display: block;
+            font-size: var(--font-size, 14px);
+            opacity: var(--opacity, var(--default-opacity));
+            transform: translateX(calc(var(--x, var(--default-x)) * 1px)) scale(var(--scale, var(--default-scale))) translateZ(0);
+        }
+
+        .button .progress,
+        .button .success {
+            --left: 0;
+            --right: 0;
+            --top: 8px;
+        }
+
+        .button .progress {
+            --font-size: 11px;
+            --opacity: var(--progress-opacity);
+            --scale: var(--progress-scale);
+        }
+
+        .button .success {
+            --font-size: 14px;
+            --opacity: var(--success-opacity);
+            --x: var(--success-x);
+            --scale: var(--success-scale);
+        }
+
+        .button:not(.active) {
+            --handle-drop-pointer: none;
+        }
+
+        .button:not(.active):active {
+            --button-scale: .975;
+        }
+        
+        /* -- External Social Link CSS Styles -- */
+
+        #source-link {
+            top: 120px;
+        }
+
+        #source-link>i {
+            color: rgb(94, 106, 210);
+        }
+
+        #yt-link {
+            top: 65px;
+        }
+
+        #yt-link>i {
+            color: rgb(219, 31, 106);
+
+        }
+
+        #Fund-link {
+            top: 10px;
+        }
+
+        #Fund-link>i {
+            color: rgb(255, 251, 0);
+
+        }
+
+        .meta-link {
+            align-items: center;
+            backdrop-filter: blur(3px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: inline-flex;
+            gap: 5px;
+            left: 10px;
+            padding: 10px 20px;
+            position: fixed;
+            text-decoration: none;
+            transition: background-color 600ms, border-color 600ms;
+            z-index: 10000;
+        }
+
+        .meta-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-link>i,
+        .meta-link>span {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .meta-link>span {
+            color: white;
+            font-family: "Rubik", sans-serif;
+            transition: color 600ms;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button">
+        <span class="handle">
+            <svg class="background" viewBox="0 0 40 40">
+                <path
+                    d="M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z">
+                </path>
+            </svg>
+            <svg class="icon" viewBox="0 0 20 20">
+                <polyline points="9 13 12 10 8 6"></polyline>
+            </svg>
+        </span>
+        <span class="default">Buy now</span>
+        <span class="progress">Confirm</span>
+        <span class="success">Done</span>
+        <span class="drop">
+            <svg class="background" viewBox="0 0 40 40">
+                <path
+                    d="M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z">
+                </path>
+            </svg>
+        </span>
+    </button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/Draggable3.min.js"></script>
+    <script>
+        gsap.registerPlugin(Draggable, MorphSVGPlugin);
+
+        document.querySelectorAll('.button').forEach(button => {
+
+            let handle = button.querySelector('.handle'),
+                handlePath = handle.querySelector('.background path'),
+                drop = button.querySelector('.drop'),
+                dropPath = drop.querySelector('.background path');
+
+            let handleTween = gsap.to(handlePath, {
+                paused: true,
+                morphSVG: 'M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 34 9.92487 36 16C36 16 37 18.4379 37 20C37 21.5621 36 24 36 24C34 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z'
+            });
+
+            let dropTween = gsap.to(dropPath, {
+                paused: true,
+                morphSVG: 'M4 16C6 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 6 30.0751 4 24C4 24 3 21.5621 3 20C3 18.4379 4 16 4 16Z'
+            });
+
+            gsap.set(handle, {
+                x: 0
+            });
+
+            Draggable.create(handle, {
+                type: 'x',
+                bounds: button,
+                onDrag(e) {
+                    dragging(this.x, button, handle, drop, handleTween, dropTween);
+                },
+                onRelease(e) {
+                    if (!this.hitTest(drop)) {
+                        gsap.to(handle, {
+                            x: 0,
+                            duration: .6,
+                            ease: 'elastic.out(1, .75)',
+                            onUpdate(e) {
+                                dragging(gsap.getProperty(handle, 'x'), button, handle, drop, handleTween, dropTween);
+                            }
+                        });
+                        if (gsap.getProperty(handle, 'x') > 0) {
+                            gsap.to(handlePath, {
+                                keyframes: [{
+                                    morphSVG: 'M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 37 9.92487 35 16C35 16 34 18.4379 34 20C34 21.5621 35 24 35 24C37 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z',
+                                    duration: .2
+                                }, {
+                                    morphSVG: 'M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z',
+                                    duration: .3
+                                }]
+                            });
+                        }
+                    } else {
+                        this.disable()
+                        gsap.to(handle, {
+                            keyframes: [{
+                                x: drop.offsetLeft - 8,
+                                duration: .6,
+                                ease: 'elastic.out(1, .8)'
+                            }, {
+                                x: button.offsetWidth / 2 - handle.offsetWidth - 20,
+                                duration: .3
+                            }]
+                        });
+                        gsap.to(handlePath, {
+                            keyframes: [{
+                                morphSVG: 'M5 16C3 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 3 30.0751 5 24C5 24 6 21.5621 6 20C6 18.4379 5 16 5 16Z',
+                                duration: .2
+                            }, {
+                                morphSVG: 'M5 16C5 9.92487 9.92487 5 16 5H24C30.0751 5 35 9.92487 35 16C35 16 35 18.4379 35 20C35 21.5621 35 24 35 24C35 30.0751 30.0751 35 24 35H16C9.92487 35 5 30.0751 5 24C5 24 5 21.5621 5 20C5 18.4379 5 16 5 16Z',
+                                duration: .15
+                            }]
+                        });
+                        gsap.to(button, {
+                            '--background-opacity': 0,
+                            '--progress-opacity': 0,
+                            '--handle-blur': 0,
+                            '--icon-y': .5,
+                            duration: .3,
+                            delay: .2
+                        });
+                        gsap.to(button, {
+                            '--icon-rotate': 87,
+                            '--icon-offset': 15.5,
+                            '--icon-scale': 1.5,
+                            duration: .25,
+                            delay: .3
+                        });
+                        gsap.to(button, {
+                            '--success-opacity': 1,
+                            '--success-scale': 1,
+                            '--success-x': 8,
+                            duration: .2,
+                            delay: .8
+                        });
+                    }
+                }
+            });
+
+            button.addEventListener('click', e => {
+
+                if (button.classList.contains('active')) {
+                    return
+                }
+
+                button.classList.add('active');
+
+                gsap.to(button, {
+                    '--handle-drop-opacity': 1,
+                    '--default-opacity': 0,
+                    '--default-scale': .8,
+                    duration: .2
+                })
+                gsap.to(button, {
+                    '--progress-opacity': .5,
+                    '--progress-scale': 1,
+                    duration: .2,
+                    delay: .15
+                })
+
+            });
+
+        });
+
+        function dragging(x, button, handle, drop, handleTween, dropTween) {
+            let progress = button.offsetWidth - 16 - handle.offsetWidth - drop.offsetWidth - x - 8;
+
+            progress = (12 - (progress > 12 ? 12 : progress < -12 ? -12 : progress)) / 12;
+            progress = progress > 1 ? 2 - progress : progress;
+
+            handleTween.progress(progress);
+            dropTween.progress(progress);
+        }
+
+    </script>
+</body>
+
+</html>
