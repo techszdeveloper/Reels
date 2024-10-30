@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #000; /* Change to black background */
+  color: #fff; /* Text color white for better contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make all input fields and buttons black and white */
+input, button {
+  background-color: #fff; /* White background for inputs and buttons */
+  color: #000; /* Black text color for inputs and buttons */
+}
+
+input {
+  padding: 0 10px;
+  outline: none;
+}
+
+/* Section 1 */
+#section1 {
+  background: rgba(255, 255, 255, 0.1); /* Light white for section background */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  
+  width: 60%;
+  height: 28em;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#section1 h1 {
+  font-size: 2em;
+  padding: 30px;
+}
+
+#websiteAdress, .color_cont input {
+  height: 40px;
+  width: 400px; /* Adjust width to make it uniform */
+  border-radius: 5px;
+  border: 1px solid #ccc; /* Keep input border visible */
+  margin: 0 0 15px 0;
+}
+
+.color_cont {
+  height: px;
+  width: 420px;
+  background: #fff; /* White background for color container */
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 15px 0;
+}
+
+#color_demo {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #7108b6; /* Keep color demo visible */
+  margin: 0 5px;
+}
+
+.color_cont input {
+    height: 30px;
+    width: 350px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+button {
+  height: 40px;
+  width: 400px;
+  border-radius: 5px;
+  background: #8800ff; /* Color of the button */
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  cursor: pointer;
+}
+
+/* Section 2 */
+#section2 {
+  display: none;
+}
+
+.wrapper {
+  background: rgba(255, 255, 255, 0.1); /* Light white for wrapper background */
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Loading Spinner */
+@keyframes ldio-tnoicgfz6f {
+  0% {
+    top: 96px;
+    left: 96px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 18px;
+    left: 18px;
+    width: 156px;
+    height: 156px;
+    opacity: 0;
+  }
+}
+
+.ldio-tnoicgfz6f div {
+  position: absolute;
+  border-width: 4px;
+  border-style: solid;
+  opacity: 1;
+  border-radius: 50%;
+  animation: ldio-tnoicgfz6f 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.ldio-tnoicgfz6f div:nth-child(1) {
+  border-color: #ffffff; /* White border */
+}
+
+.ldio-tnoicgfz6f div:nth-child(2) {
+  border-color: #8800ff; /* Keep button color */
+  animation-delay: -0.5s;
+}
+
+.loadingio-spinner-ripple-4o61jz917vh {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.ldio-tnoicgfz6f {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+/* Section 3 */
+#section3 {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+#resultImg {
+  width: 50%;
+  margin: 10px;
+}
+
+.cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
